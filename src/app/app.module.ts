@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';

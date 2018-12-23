@@ -2,16 +2,16 @@
     <div class="row">
   <div class="col-lg-4">
     <div class="container">
-      <button class="btn btn-success" type="button">Shop!</button>
+      <button class="btn btn-success" type="button" [routerLink]="['']">Shop!</button>
     </div>
     <div class="container">
       <h5>Login:</h5>
       <div class="container">
         <form [formGroup]="loginForm" action="">
           <label for="" class="control-label mb-0">User Name:</label>
-          <input type="text" name="userName" formControlName="user" class="form-control form-control-sm" id="">
+          <input type="text" name="userName" formControlName="user" class="form-control form-control-sm" >
           <label for="" class="control-label mb-0">Password:</label>
-          <input type="text" name="password" formControlName="password" class="form-control form-control-sm" id="">
+          <input type="text" name="password" formControlName="password" class="form-control form-control-sm" >
           <button class="btn btn-primary" type="submit">Login</button>
           <button class="btn btn-outline-info" type="button" (click)="openSignup()" >Sign Up</button>
         </form>

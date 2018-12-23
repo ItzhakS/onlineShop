@@ -6,28 +6,30 @@
       <h4 class="modal-title w-100" id="myModalLabel">Sign Up! Now!</h4>
     </div>
     <div class="modal-body">
-        <form class="text-center border border-light p-5" [formGroup]="signupForm">
+        <form class="text-center p-1" [formGroup]="signupForm">
           <div class="row">
             <div class="col">
-              <input type="text" id="idNumber" class="form-control" formControlName="id" placeholder="ID #">
-              <input type="email" id="email" class="form-control" formControlName="email" placeholder="Email">
-              <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password">
+              <input type="text" id="idNumber" class="form-control mb-1" formControlName="id" placeholder="ID #">
+              <input type="email" id="email" class="form-control mb-1" formControlName="email" placeholder="Email">
+              <input type="password" id="password" class="form-control mb-1" formControlName="password" placeholder="Password">
               <small id="" class="form-text text-muted mb-4">
                   At least 8 characters and 1 digit
               </small>
-              <input type="text" id="conPassword" class="form-control" formControlName="conPassword" placeholder="Confirm Password">
+              <input type="text" id="conPassword" class="form-control mb-1" formControlName="conPassword" placeholder="Confirm Password">
             </div>
             <div class="col border-left">
-              <div class="col">
-              <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="First Name">
-            </div>
-              <div class="col">
-                <input type="text" id="email" class="form-control" formControlName="lastName" placeholder="Last Name">
+              <div class="form-row">
+                <div class="col">
+                  <input type="text" id="firstName" class="form-control mb-1" formControlName="firstName" placeholder="First Name">
+                </div>
+                <div class="col">
+                  <input type="text" id="email" class="form-control mb-1" formControlName="lastName" placeholder="Last Name">
+                </div>
               </div>
-              <select id="city" class="form-control" formControlName="city" placeholder="City">
+              <select id="city" class="form-control mb-1" formControlName="city" placeholder="City">
                 <option *ngFor="let city of cityList" [value]="city">{{city}}</option>
               </select>
-              <input type="text" id="street" class="form-control" formControlName="street" placeholder="Street">
+              <input type="text" id="street" class="form-control mb-1" formControlName="street" placeholder="Street">
           </div>
           </div>
         </form>
