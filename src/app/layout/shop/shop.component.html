@@ -1,3 +1,11 @@
-<p>
-  shop works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3" mdbCollapse [isCollapsed]="false" [class.d-none]="cartCollapsed" #cart="bs-collapse">
+        <app-cart></app-cart>
+    </div>
+    <div class="col-9">
+    <button mdbBtn color="primary" class="waves-light btn btn-sm" type="button" (click)="cart.toggle();cartCollapsed=!cartCollapsed" mdbWavesEffect>Hide Cart</button>
+      <app-category-display></app-category-display>
+    </div>
+  </div>
+</div>

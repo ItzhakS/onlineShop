@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  list = [
+    {name:'Food'},
+    {name:'Shoes'},
+    {name:'Kaclee'},
+    {name:'Nisht'},
+    {name:'FoBarr'}
+  ]
 
   constructor() { }
 

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +21,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: 'home', component: HomepageComponent},
-  {path: '', redirectTo:"home", pathMatch:"full"}
+  {path: '', redirectTo:"home", pathMatch:"full"},
+  { path: 'shop', 
+    component: ShopComponent
+    // children: [
+    //   {path:}
+    // ]
+  },
+
+
 ]
 @NgModule({
   declarations: [
@@ -34,6 +43,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
