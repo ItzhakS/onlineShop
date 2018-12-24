@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShopServiceService } from 'src/app/services/shop-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -6,17 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  list = [
-    {name:'Food'},
-    {name:'Shoes'},
-    {name:'Kaclee'},
-    {name:'Nisht'},
-    {name:'FoBarr'}
-  ]
+  cartItemlist = []
 
-  constructor() { }
+  constructor(
+    private shopService: ShopServiceService
+  ) { }
 
   ngOnInit() {
+    this.shopService.getCartItems(1)
+      .subscribe(
+        res=>this.cartItemlist = res,
+        e=>this.cartItemlist = []
+      )
   }
 
 }

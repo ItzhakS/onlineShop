@@ -1,23 +1,23 @@
 <div class="container-fluid">
-    <ul class="nav justify-content-center grey lighten-4 py-1">
-        <li class="nav-item px-4" (click)="loadItems($event,1)">
+    <ul class="nav  mb-3 justify-content-center grey lighten-4 py-1">
+        <li class="nav-item px-4" mdbWavesEffect [class.bg-info]="dairyActive" (click)="loadItems(1)">
             <a class="nav-link black-text"  >Dairy</a>
         </li>
-        <li class="nav-item border-left px-4" (click)="loadItems($event,2)">
+        <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="meatActive" (click)="loadItems(2)">
             <a class="nav-link black-text"  >Meat</a>
         </li>
-        <li class="nav-item border-left px-4" (click)="loadItems($event,3)">
+        <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="carbsActive" (click)="loadItems(3)">
             <a class="nav-link black-text"  >Carbs</a>
         </li>
-        <li class="nav-item border-left px-4" (click)="loadItems($event,4)">
+        <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="miscActive" (click)="loadItems(4)">
             <a class="nav-link black-text"  >Misc</a>
         </li>
     </ul>
     <div class="d-flex">
-      <div *ngFor="let item of itemsList" class="card">
+      <div *ngFor="let item of itemsList; first as isFirst" (click)="openModal(item)" class="card mx-3">
         <div class="card-body">
           <h6 class="card-title" >{{item.name}}</h6>
-          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <img class="card-img-top" src="" alt="Card image cap">
           <p class="card-text">{{item.price}}</p>
         </div>
       </div>

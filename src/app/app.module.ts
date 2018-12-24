@@ -17,6 +17,7 @@ import { CategoryDisplayComponent } from './layout/shop/category-display/categor
 import { HomepageService } from './services/homepage.service';
 import { Configuration } from './services/configuration';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ItemModalComponent } from './layout/shop/category-display/item-modal/item-modal.component';
 
 
 const appRoutes: Routes = [
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     LoginComponent,
     ShopComponent,
     CartComponent,
-    CategoryDisplayComponent
+    CategoryDisplayComponent,
+    ItemModalComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MDBBootstrapModule.forRoot()
   ],
-  entryComponents: [ LoginComponent ],
+  entryComponents: [ LoginComponent, ItemModalComponent ],
   providers: [
     Configuration,
     HomepageService],

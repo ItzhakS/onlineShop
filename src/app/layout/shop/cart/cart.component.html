@@ -1,9 +1,10 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mb-3">
+    <i class="fa fa-shopping-basket"></i>
   </div>
   <div class="row">
     <ul>
-      <li *ngFor="let item of list">{{item.name}}</li>
+      <li *ngFor="let item of list">{{item.name}} X {{item.amount}} = {{item.total}}</li>
     </ul>
 
   </div>

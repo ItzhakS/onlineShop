@@ -17,4 +17,13 @@ export class ShopServiceService {
     const url = `${this.config.ApiBaseUrl}item/${catId}`;
     return this.http.get(url);
   }
+  getCartItems(cartId:number):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}item/${cartId}`;
+    return this.http.get(url);
+  }
+
+  postCartItem():Observable<any>{
+    const url = `${this.config.ApiBaseUrl}addCartItem`;
+    return this.http.get(url);
+  }
 }
