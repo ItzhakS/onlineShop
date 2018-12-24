@@ -1,3 +1,25 @@
-<p>
-  category-display works!
-</p>
+<div class="container-fluid">
+    <ul class="nav justify-content-center grey lighten-4 py-1">
+        <li class="nav-item px-4" (click)="loadItems($event,1)">
+            <a class="nav-link black-text"  >Dairy</a>
+        </li>
+        <li class="nav-item border-left px-4" (click)="loadItems($event,2)">
+            <a class="nav-link black-text"  >Meat</a>
+        </li>
+        <li class="nav-item border-left px-4" (click)="loadItems($event,3)">
+            <a class="nav-link black-text"  >Carbs</a>
+        </li>
+        <li class="nav-item border-left px-4" (click)="loadItems($event,4)">
+            <a class="nav-link black-text"  >Misc</a>
+        </li>
+    </ul>
+    <div class="d-flex">
+      <div *ngFor="let item of itemsList" class="card">
+        <div class="card-body">
+          <h6 class="card-title" >{{item.name}}</h6>
+          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <p class="card-text">{{item.price}}</p>
+        </div>
+      </div>
+    </div>
+</div>

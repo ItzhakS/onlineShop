@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShopServiceService } from 'src/app/services/shop-service.service';
 
 @Component({
   selector: 'app-category-display',
@@ -6,8 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-display.component.scss']
 })
 export class CategoryDisplayComponent implements OnInit {
+  itemsList: object[]= [];
 
-  constructor() { }
+  constructor(
+    private shopService: ShopServiceService
+    ) {
+    
+  }
+
+  loadItems(e, catId){
+    this.shopService.getItems(catId)
+      .subscribe(
+        res=>this.itemsList = res
+      )
+  }
 
   ngOnInit() {
   }
