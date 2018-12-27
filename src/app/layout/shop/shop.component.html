@@ -1,11 +1,57 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="" style="height:90%">
+  <div class="row h-100 m-0">
     <div class="col-3" mdbCollapse [isCollapsed]="false" [class.d-none]="cartCollapsed" #cart="bs-collapse">
-        <app-cart></app-cart>
+        <div class="d-flex flex-column mt-2 grey lighten-2 h-100">
+            <div class="container-fluid h-100  pl-3">
+              <div class="d-flex flex-column h-100">
+                <h5 class="inline"><i class="fa fa-shopping-basket">Cart</i></h5>
+              <div class="container">
+                <ol *ngIf="cartItemList.length>0">
+                  <li *ngFor="let item of cartItemList">{{item.name}} X {{item.amount}} = {{item.total}}</li>
+                </ol>
+              </div>
+              <div class="h-100 d-flex">
+                <div class="row align-self-end h-25">
+                  <div class="col">
+                    Total: {{cartTotal | number}}
+                  </div>
+                  <div class="col">
+                    <button mdbBtn color="success" class="ml-3 waves-light btn btn-sm" [routerLink]="['../order']" type="button" mdbWavesEffect>Order!</button>
+                  </div>
+                </div>
+          
+              </div>
+              </div>
+            </div>
+          </div>
     </div>
     <div class="col">
     <button mdbBtn color="primary" class="ml-3 waves-light btn btn-sm" type="button" (click)="cart.toggle();cartCollapsed=!cartCollapsed" mdbWavesEffect>Hide Cart</button>
-      <app-category-display></app-category-display>
+    <div class="container-fluid">
+        <ul class="nav  mb-3 justify-content-center grey lighten-4 py-1">
+            <li class="nav-item px-4" mdbWavesEffect [class.bg-info]="dairyActive" (click)="loadItems(1)">
+                <a class="nav-link black-text"  >Dairy</a>
+            </li>
+            <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="meatActive" (click)="loadItems(2)">
+                <a class="nav-link black-text"  >Meat</a>
+            </li>
+            <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="carbsActive" (click)="loadItems(3)">
+                <a class="nav-link black-text"  >Carbs</a>
+            </li>
+            <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="miscActive" (click)="loadItems(4)">
+                <a class="nav-link black-text"  >Misc</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+          <div *ngFor="let item of itemsList; first as isFirst" (click)="openModal(item)" class="card mx-3">
+            <div class="card-body">
+              <h6 class="card-title" >{{item.name}}</h6>
+              <img class="card-img-top" src="" alt="Card image cap">
+              <p class="card-text">{{item.price}}</p>
+            </div>
+          </div>
+        </div>
+    </div>
     </div>
   </div>
 </div>

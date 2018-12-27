@@ -12,23 +12,18 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomepageComponent } from './layout/homepage/homepage.component';
 import { LoginComponent } from './layout/login/login.component';
 import { ShopComponent } from './layout/shop/shop.component';
-import { CartComponent } from './layout/shop/cart/cart.component';
-import { CategoryDisplayComponent } from './layout/shop/category-display/category-display.component';
 import { HomepageService } from './services/homepage.service';
 import { Configuration } from './services/configuration';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ItemModalComponent } from './layout/shop/category-display/item-modal/item-modal.component';
+import { OrderComponent } from './layout/order/order.component';
+import { ItemModalComponent } from './layout/shop/item-modal/item-modal.component';
 
 
 const appRoutes: Routes = [
   {path: 'home', component: HomepageComponent},
   {path: '', redirectTo:"home", pathMatch:"full"},
-  { path: 'shop', 
-    component: ShopComponent
-    // children: [
-    //   {path:}
-    // ]
-  },
+  { path: 'shop', component: ShopComponent},
+  { path: 'order', component: OrderComponent},
 
 
 ]
@@ -39,9 +34,8 @@ const appRoutes: Routes = [
     HomepageComponent,
     LoginComponent,
     ShopComponent,
-    CartComponent,
-    CategoryDisplayComponent,
-    ItemModalComponent
+    ItemModalComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
