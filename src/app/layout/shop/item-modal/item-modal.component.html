@@ -8,13 +8,17 @@
   </div>
   <div class="modal-body">
     ${{price}}
-    <form [formGroup]="itemForm" action="">
+    <form [formGroup]="itemForm" action="" (ngSubmit)="saveCartItem()">
+      <div class="md-form">
         <label for="" class="control-label mb-0">Amount:</label>
-        <input type="number" name="userName" formControlName="amount" class="form-control form-control-sm" >
+        <input mdbInputDirective type="number" name="userName" formControlName="amount" class="form-control form-control-sm" required>
+        <mdb-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">Amount invalid</mdb-error>
+        <mdb-success *ngIf="amount.valid && (amount.dirty || amount.touched)">Amount valid</mdb-success>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="itemModal.hide()" mdbWavesEffect>Close</button>
-    <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="saveCartItem()" mdbWavesEffect>Save!</button>
+    <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save!</button>
   </div>
 </div>

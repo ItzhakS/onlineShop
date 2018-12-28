@@ -7,7 +7,9 @@
                 <h5 class="inline"><i class="fa fa-shopping-basket">Cart</i></h5>
               <div class="container">
                 <ol *ngIf="cartItemList.length>0">
-                  <li *ngFor="let item of cartItemList">{{item.name}} X {{item.amount}} = {{item.total}}</li>
+                  <li *ngFor="let item of cartItemList">
+                    <span class="text-primary">{{item.name}}</span> {{item.amount}}x @ {{item.price}} &nbsp;<span (click)="deleteCartItem(item.id)" style="cursor:pointer"><i class="pointer text-danger fa fa-bomb"></i></span>
+                  </li>
                 </ol>
               </div>
               <div class="h-100 d-flex">
@@ -26,6 +28,13 @@
           </div>
     </div>
     <div class="col">
+      <div class="container">
+          <form [formGroup]="searchForm" class="form-inline md-form form-sm active-cyan-2">
+              <input (keyup)="searchItems()" formControlName="search" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search"
+                mdbInputDirective>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </form>
+      </div>
     <button mdbBtn color="primary" class="ml-3 waves-light btn btn-sm" type="button" (click)="cart.toggle();cartCollapsed=!cartCollapsed" mdbWavesEffect>Hide Cart</button>
     <div class="container-fluid">
         <ul class="nav  mb-3 justify-content-center grey lighten-4 py-1">
@@ -43,6 +52,9 @@
             </li>
         </ul>
         <div class="d-flex">
+          <div class="h3 text-danger" *ngIf="noItems">
+            No Items Found
+          </div>
           <div *ngFor="let item of itemsList; first as isFirst" (click)="openModal(item)" class="card mx-3">
             <div class="card-body">
               <h6 class="card-title" >{{item.name}}</h6>

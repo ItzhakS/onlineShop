@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 export class ItemModalComponent implements OnInit {
   action: Subject<any> = new Subject();
   itemForm = this.fb.group({
-    amount: [0, Validators.required]
+    amount: [0, [Validators.required, Validators.min(1)]]
   })
   cartId:number;
   id:number;

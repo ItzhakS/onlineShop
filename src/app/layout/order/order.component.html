@@ -1,10 +1,10 @@
 <div class="" style="height:90%">
     <div class="row h-100 m-0">
-      <div class="col-3">
+      <div class="col-3 grey lighten-2">
           <div class="container-fluid h-100  pl-3">
-              <div class="d-flex flex-column h-100">
+              <div class="d-flex flex-column h-100 p-3">
                 <h5 class="inline"><i class="fa fa-shopping-basket">Cart</i></h5>
-              <div class="container">
+              <div class="container mt-2">
                 <ol *ngIf=" cartItemList && cartItemList.length>0">
                   <li *ngFor="let item of cartItemList">{{item.name}} X {{item.amount}} = {{item.total}}</li>
                 </ol>
@@ -12,10 +12,7 @@
               <div class="h-100 d-flex">
                 <div class="row align-self-end h-25">
                   <div class="col">
-                    Total: {{cartTotal}}
-                  </div>
-                  <div class="col">
-                    <button mdbBtn color="success" class="ml-3 waves-light btn btn-sm" [routerLink]="['../order']" type="button" mdbWavesEffect>Order!</button>
+                    Total: {{cartTotal | number}}
                   </div>
                 </div>
           
@@ -24,23 +21,29 @@
             </div>
       </div>
       <div class="col">
-        <div class="container">
-          <div class="card">
-            <h5>Shipping Details</h5>
+        <div class="container w-50">
+          <div class="mt-4 card">
+            <div class="card-body">
+            <h5 class="card-title">Shipping Details</h5>
             <hr>
-            <form action="" [formGroupName]="shippingForm">
-              <select id="city" class="form-control mb-1" formControlName="city" placeholder="City">
+              <form action="" (ngSubmit)="onSubmit()" [formGroup]="shippingForm">
+                <div class="md-form">
+                   <select id="city" class="form-control mb-1" formControlName="city" required placeholder="City">
                 <option *ngFor="let city of cityList" [value]="city">{{city}}</option>
-              </select>
-              <input type="text" id="street" class="form-control mb-1" formControlName="street" placeholder="Street">
-
+                </select>
+                </div>
+             
+              <input type="text" id="street" class="form-control mb-1" formControlName="street" required placeholder="Street">
+              <input type="date" class="mb-3" name="sendDate" formControlName="sendDate" id="" required placeholder="SendDate">
               <h5>Payment</h5>
               <hr>
-              <input type="text" id="street" class="form-control mb-1" formControlName="street" placeholder="Credit Card">
+              <input type="text" id="street" class="form-control mb-1" formControlName="street" required placeholder="Credit Card">
             </form>
+            <button mdbBtn mdbWavesEffect class="btn btn-success" type="submit" >Ship Order</button>
+            </div>
+            
           </div>
         </div>
       </div>
     </div>
-        
   </div>

@@ -26,4 +26,14 @@ export class ShopServiceService {
     const url = `${this.config.ApiBaseUrl}addCartItem`;
     return this.http.post(url, item);
   }
+
+  deleteCartItem(id:number):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}deleteCartItem/${id}`;
+    return this.http.delete(url);
+  }
+
+  search(str:string):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}search/${str}`;
+    return this.http.get(url);
+  }
 }

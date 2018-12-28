@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShopServiceService } from 'src/app/services/shop-service.service';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import { ItemModalComponent } from './item-modal/item-modal.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-shop',
@@ -9,6 +10,9 @@ import { ItemModalComponent } from './item-modal/item-modal.component';
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
+  searchForm= new FormGroup({
+    search: new FormControl('')
+  });
   cartCollapsed = false;
   cartItemList = [];
   cartTotal: number = 0;
@@ -19,6 +23,7 @@ export class ShopComponent implements OnInit {
   miscActive: boolean = false;
   modalRef: MDBModalRef;
   cartId: number=1;
+  noItems: boolean;
 
   constructor(
     private shopService: ShopServiceService,
@@ -44,6 +49,24 @@ export class ShopComponent implements OnInit {
         })
   }
 
+  searchItems(){
+    const str = this.searchForm.value.search;
+    if(str == '') return this.itemsList = [];
+    this.shopService.search(str)
+      .subscribe(
+        res=>{
+          if(res.length==0) this.noItems = true;
+          else this.noItems = false
+          this.itemsList = res;
+          this.dairyActive = false;
+          this.meatActive= false;
+          this.carbsActive= false;
+          this.miscActive= false;
+        }
+      )
+  }
+
+
   openModal(item) {
     this.modalRef = this.modalService.show(ItemModalComponent)
     this.modalRef.content.name = item.name;
@@ -59,6 +82,14 @@ export class ShopComponent implements OnInit {
     )
   }
 
+  deleteCartItem(id:number){
+    this.shopService.deleteCartItem(id)
+      .subscribe(res=>{
+        const deletedItemIndex = this.cartItemList.findIndex(item=>item.id == res.id)
+        this.cartItemList.splice(deletedItemIndex,1);
+        this.cartTotal -= res.price;
+      })
+  }
   loadItems(catId){
     this.shopService.getItems(catId)
       .subscribe(
