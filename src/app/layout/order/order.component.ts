@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ShopServiceService } from 'src/app/services/shop-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Configuration } from 'src/app/services/configuration';
+import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
+import { modalConfigDefaults } from 'angular-bootstrap-md/angular-bootstrap-md/modals/modal.options';
 
 @Component({
   selector: 'app-order',
@@ -13,20 +15,23 @@ export class OrderComponent implements OnInit {
   shippingForm = this.fb.group({
     city:['', Validators.required],
     street: ['', Validators.required],
-    shippingDate:['', Validators.required],
-    ccNumber:['', Validators.required, Validators.minLength(4)],
+    ccNumber:['', [Validators.required, Validators.minLength(4)]],
     sendDate:['', Validators.required]
   })
   cartItemList: any[];
   cartTotal: number;
   cityList: string[];
+  cartId:number = 1;
+  modalRef: MDBModalRef;
+  @ViewChild('basicModal') modal;
 
 
   constructor(
     private fb: FormBuilder,
     private shopService:ShopServiceService,
     private route : ActivatedRoute,
-    private config: Configuration
+    private config: Configuration,
+    private modalService: MDBModalService
   ) { 
     this.cityList = this.config.CityList
   }
@@ -44,9 +49,17 @@ export class OrderComponent implements OnInit {
   }
 
   onSubmit(){
- console.log(this.shippingForm.status)
+    this.shopService.shipOrder(this.shippingForm.value,this.cartId,this.cartTotal)
+    .subscribe(res=>{
+      console.log(res)
+      this.shippingForm.reset();
+      this.modal.show();
+    })
   }
 
+  // backToHome(){
+  //   this.route.
+  // }
   ngOnInit() {
     this.getCartItems(1);
     // this.route.parent.data.subscribe(r => {

@@ -17,6 +17,7 @@ import { Configuration } from './services/configuration';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './layout/order/order.component';
 import { ItemModalComponent } from './layout/shop/item-modal/item-modal.component';
+import { AdminComponent } from './layout/admin/admin.component';
 
 
 const appRoutes: Routes = [
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     LoginComponent,
     ShopComponent,
     ItemModalComponent,
-    OrderComponent
+    OrderComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,8 @@ export class ItemModalComponent implements OnInit {
   cartId:number;
   id:number;
 
+  get amount() { return this.itemForm.get('amount'); }
+  
   constructor(
     public itemModal: MDBModalRef,
     private fb: FormBuilder,

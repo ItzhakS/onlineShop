@@ -32,8 +32,28 @@ export class ShopServiceService {
     return this.http.delete(url);
   }
 
+  removeAllCartItems(cartId:number){
+    const url = `${this.config.ApiBaseUrl}removeCartItems/${cartId}`;
+    return this.http.delete(url);
+  }
+
   search(str:string):Observable<any>{
     const url = `${this.config.ApiBaseUrl}search/${str}`;
     return this.http.get(url);
+  }
+
+  shipOrder(order:any, cartId:number, total:number):Observable<any>{
+
+    const model = {
+      cartId: cartId,
+      total:total,
+      city: order.city,
+      street: order.street,
+      orderDate: new Date(),
+      sendDate: order.sendDate,
+      cardNum: order.ccNumber,
+    }
+    const url = `${this.config.ApiBaseUrl}shipOrder`;
+    return this.http.post(url, model);
   }
 }

@@ -66,6 +66,17 @@ export class ShopComponent implements OnInit {
       )
   }
 
+  removeAllCartItems(){
+    this.shopService.removeAllCartItems(this.cartId)
+      .subscribe(
+        res=>{
+          this.cartItemList=[]
+          this.cartTotal = 0;
+        },
+        e=>console.log(e)
+      )
+  }
+
 
   openModal(item) {
     this.modalRef = this.modalService.show(ItemModalComponent)
