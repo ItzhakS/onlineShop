@@ -29,7 +29,7 @@ export class HomepageService {
   }
 
   signup(user:any):Observable<any>{
-    const url = `${this.config.ApiBaseUrl}signup`;
+    const url = `${this.config.ApiBaseUrl}newUser`;
     return this.http.post(url, user);
   }
 

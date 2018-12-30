@@ -20,7 +20,7 @@
                   <mdb-success *ngIf="email.valid && (email.dirty || email.touched)">Valid</mdb-success>
                 </div>
                 <div class="md-form">
-                  <input mdbInput mdbValidate type="password" id="password" class="form-control mb-1" formControlName="password" placeholder="Password">
+                  <input mdbInput mdbValidate minlength="8" type="password" id="password" class="form-control mb-1" formControlName="password" placeholder="Password">
                   <small id="" class="form-text text-muted mb-4">
                       At least 8 characters
                   </small>

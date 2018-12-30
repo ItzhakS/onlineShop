@@ -19,6 +19,10 @@ export class AuthGaurdGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      if(!this.user) {
+        this.router.navigate(['../home'], { queryParams: { returnUrl: state.url }});
+        return false;
+      }
         if (localStorage.getItem('token') && this.user.role >0) {
             // logged in so return true
             return true;

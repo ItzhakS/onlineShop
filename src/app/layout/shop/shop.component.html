@@ -23,7 +23,7 @@
                     Total: {{cartTotal | number}}
                   </div>
                   <div class="col">
-                    <button mdbBtn color="success" class="ml-3 waves-light btn btn-sm" [routerLink]="['../order']" type="button" mdbWavesEffect>Order!</button>
+                    <button [disabled]="cartItemList.length<=0" mdbBtn color="success" class="ml-3 waves-light btn btn-sm" [routerLink]="['../order']" type="button" mdbWavesEffect>Order!</button>
                   </div>
                 </div>
           

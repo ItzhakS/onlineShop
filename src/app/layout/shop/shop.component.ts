@@ -22,32 +22,15 @@ export class ShopComponent implements OnInit {
   carbsActive: boolean = false;
   miscActive: boolean = false;
   modalRef: MDBModalRef;
-  cartId: number=1;
+  cartId: number;
   noItems: boolean;
+  cart: any;
 
   constructor(
     private shopService: ShopServiceService,
     private modalService: MDBModalService
   ) { }
 
-  ngOnInit() {
-    this.loadItems(1);
-
-    this.shopService.getCartItems(1)
-      .subscribe(
-        res=>{
-          this.cartItemList = res;
-          if(this.cartItemList.length>0){
-            let totalArr= new Array();
-            this.cartItemList.forEach(item=>totalArr.push(item.total))
-            this.cartTotal = totalArr.reduce((a,b)=>a+b,0);
-          }
-        },
-        e=>{
-          this.cartTotal = 0;
-          this.cartItemList = []
-        })
-  }
 
   searchItems(){
     const str = this.searchForm.value.search;
@@ -137,4 +120,24 @@ export class ShopComponent implements OnInit {
       }
   }
 
+  ngOnInit() {
+    this.loadItems(1);
+    this.cart = JSON.parse(localStorage.getItem('cart'));
+    this.cartId = this.cart.id;
+    this.shopService.getCartItems(this.cartId)
+      .subscribe(
+        res=>{
+          this.cartItemList = res;
+          console.log(this.cartItemList)
+          if(this.cartItemList.length>0){
+            let totalArr= new Array();
+            this.cartItemList.forEach(item=>totalArr.push(item.total))
+            this.cartTotal = totalArr.reduce((a,b)=>a+b,0);
+          }
+        },
+        e=>{
+          this.cartTotal = 0;
+          this.cartItemList = []
+        })
+  }
 }

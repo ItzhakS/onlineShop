@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Configuration } from '../services/configuration';
 
 @Component({
   selector: 'app-layout',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  get user():any{return this.config.user} 
+
+  constructor(
+    public config: Configuration
+  ) { }
 
   ngOnInit() {
   }

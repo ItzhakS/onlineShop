@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ShopServiceService } from 'src/app/services/shop-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Configuration } from 'src/app/services/configuration';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import { modalConfigDefaults } from 'angular-bootstrap-md/angular-bootstrap-md/modals/modal.options';
@@ -12,16 +12,19 @@ import { modalConfigDefaults } from 'angular-bootstrap-md/angular-bootstrap-md/m
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
+
+  get user():any{return this.config.user}
+
   shippingForm = this.fb.group({
-    city:['', Validators.required],
-    street: ['', Validators.required],
+    city:[this.user.city, Validators.required],
+    street: [this.user.street, Validators.required],
     ccNumber:['', [Validators.required, Validators.minLength(4)]],
     sendDate:['', Validators.required]
   })
   cartItemList: any[];
   cartTotal: number;
   cityList: string[];
-  cartId:number = 1;
+  cartId:number;
   modalRef: MDBModalRef;
   @ViewChild('basicModal') modal;
 
@@ -29,11 +32,12 @@ export class OrderComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private shopService:ShopServiceService,
-    private route : ActivatedRoute,
+    private router: Router,
     private config: Configuration,
     private modalService: MDBModalService
   ) { 
-    this.cityList = this.config.CityList
+    this.cityList = this.config.CityList;
+    console.log(this.user)
   }
 
   getCartItems(cartId:number){
@@ -57,14 +61,16 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  // backToHome(){
-  //   this.route.
-  // }
-  ngOnInit() {
-    this.getCartItems(1);
-    // this.route.parent.data.subscribe(r => {
+  backToHome(){
+    localStorage.removeItem('cart');
+    this.router.navigate(['../home']);
+  }
 
-    // })
+  ngOnInit() {
+    this.cartId = parseInt(localStorage.getItem('cart'));
+
+    this.getCartItems(this.cartId);
+
   }
 
 }

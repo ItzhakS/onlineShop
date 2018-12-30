@@ -17,7 +17,14 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.user.role !== 0) return false;
+      if(!this.user) {
+        this.router.navigate(['../home'], { queryParams: { returnUrl: state.url }});
+        return false;
+      }
+    if(this.user.role !== 0){
+      this.router.navigate(['../home'], { queryParams: { returnUrl: state.url }});
+      return false;
+    } 
     else return true;
   }
 }

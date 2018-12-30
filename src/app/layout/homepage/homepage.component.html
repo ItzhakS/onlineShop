@@ -4,21 +4,24 @@
     <div *ngIf="shopper && noCart" class="container m-3">
       <button class="btn btn-success" type="button" (click)="enterShop()">Shop!</button>
     </div>
-    <div class="mt-4 container">
+    <div class="mt-4 container" *ngIf="!loggedIn">
       <h5>Login:</h5>
       <div class="container">
         <form [formGroup]="loginForm" action="">
           <label for="" class="control-label mb-0">User Name:</label>
           <input type="text" name="userName"  (focus)="errorMessage=''" formControlName="email" class="form-control form-control-sm" >
           <label for="" class="control-label mb-0">Password:</label>
-          <input type="text" name="password" (focus)="errorMessage=''" formControlName="password" class="form-control form-control-sm" >
-          <button class="btn btn-primary" (click)="login()" type="submit">Login</button>
+          <input type="password" name="password" (focus)="errorMessage=''" formControlName="password" class="form-control form-control-sm" >
           <button class="btn btn-outline-info" type="button" (click)="openSignup()" >Sign Up</button>
+          <button class="btn btn-primary" (click)="login()" type="submit">Login</button>
         </form>
         <div class="text-danger">
           {{errorMessage}}
         </div>
       </div>
+    </div>
+    <div class="container mt-4" *ngIf="loggedIn">
+        <button class="btn btn-outline-info" type="button" (click)="logout()" >Logout</button>
     </div>
   </div>
   <div class="col-lg-4">

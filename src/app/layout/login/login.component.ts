@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 export class LoginComponent implements OnInit {
   signupForm = this.fb.group({
     tz:['', Validators.required],
-    email:['', Validators.required],
+    email:['',[ Validators.required, Validators.email]],
     password:['', [Validators.required, Validators.min(8)]],
     firstName:['', Validators.required],
     lastName:['', Validators.required],
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
               this.modalRef.hide();
               this.signupForm.reset();
             },
-            e=>this.errorMessage = e
+            e=>this.errorMessage = e.error
           )
       }
     }

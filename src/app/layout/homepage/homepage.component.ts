@@ -23,7 +23,7 @@ export class HomepageComponent implements OnInit {
   })
   get user():any{return this.config.user} 
   set user(value:any){this.config.user = value};
-  shopper:any;
+  shopper:boolean = false;
   noCart:boolean;
   errorMessage:string;
 
@@ -40,6 +40,7 @@ export class HomepageComponent implements OnInit {
 
       this.modalRef.content.action.subscribe(res=>{
         this.user = res;
+        this.loggedIn =true;
         localStorage.setItem('user', this.user.tz);
         this.shopper = true;
       })
@@ -65,12 +66,28 @@ export class HomepageComponent implements OnInit {
                 this.shopper =false;
               }
               else{
+                if(localStorage.getItem('cart')){
+                  let cart = JSON.parse(localStorage.getItem('cart'))
+                  if(cart.userId == this.user.tz)this.noCart = false;
+                  else localStorage.removeItem('cart');
+                }
                 this.shopper = true;
               }
             },
-            e=>this.errorMessage = e
+            e=>{
+              console.log(e)
+              this.errorMessage = e.error
+            }
           )
       }
+    }
+
+    logout(){
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.loggedIn=false;
+      this.user = null;
+      this.shopper = null;
     }
 
   loadLists() {
@@ -84,21 +101,35 @@ export class HomepageComponent implements OnInit {
       this.homeService.newCart(this.user.tz)
         .subscribe(
           res=>{
-            localStorage.setItem('cart', res.id)
+            localStorage.setItem('cart', JSON.stringify(res))
             this.noCart = false;
-            this.router.navigateByUrl('../shop')
+            this.router.navigate(['../shop'])
           }
         )
     }
 
   ngOnInit() {
-    if(!localStorage.getItem('cart')){
-      this.noCart = true;
-    } 
-    else if(this.user && localStorage.getItem('cart')){
-      this.noCart = false;
-      this.shopper = true;
-    } 
+    if(localStorage.getItem('user') && localStorage.getItem('token')){
+      let userId = parseInt(localStorage.getItem('user'));
+      this.homeService.getUser(userId)
+        .subscribe(
+          user=>{
+            this.loggedIn =true;
+            this.user = user[0];
+            if(this.user.role!=0)this.shopper = true;
+            else{
+              this.shopper = false
+            }
+            if(!localStorage.getItem('cart')){
+              this.noCart = true;
+            } 
+            else if(localStorage.getItem('cart')){
+              let cart = JSON.parse(localStorage.getItem('cart'))
+              if(cart.userId == this.user.tz)this.noCart = false;
+            }
+          })
+    }
+
     this.loadLists();
   }
 }
