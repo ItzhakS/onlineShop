@@ -56,15 +56,15 @@
                 <a class="nav-link black-text"  >Misc</a>
             </li>
         </ul>
-        <div class="d-flex">
+        <div class="d-flex flex-wrap">
           <div class="h3 text-danger" *ngIf="noItems">
             No Items Found
           </div>
-          <div *ngFor="let item of itemsList; first as isFirst" (click)="openModal(item)" class="card mx-3">
+          <div *ngFor="let item of itemsList; first as isFirst" (click)="openModal(item)" style="height:200px;width:200px" class="card mx-3 mb-2">
             <div class="card-body">
               <h6 class="card-title" >{{item.name}}</h6>
-              <img class="card-img-top" src="" alt="Card image cap">
-              <p class="card-text">{{item.price}}</p>
+              <img class="card-img" style="max-height:120px;max-width:135px" src="{{item.picturePath}}" alt="Card image cap">
+              <p class="card-text"><b>${{item.price}}</b></p>
             </div>
           </div>
         </div>

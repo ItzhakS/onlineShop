@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Http } from '@angular/http';
 
 
@@ -18,14 +18,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './layout/order/order.component';
 import { ItemModalComponent } from './layout/shop/item-modal/item-modal.component';
 import { AdminComponent } from './layout/admin/admin.component';
+import { AuthGaurdGuard } from './auth-gaurd.guard';
+import { AdminGuard } from './admin.guard';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 
 const appRoutes: Routes = [
   {path: 'home', component: HomepageComponent},
   {path: '', redirectTo:"home", pathMatch:"full"},
-  { path: 'shop', component: ShopComponent},
-  { path: 'order', component: OrderComponent},
-
+  { path: 'shop', component: ShopComponent, canActivate: [AuthGaurdGuard]},
+  { path: 'order', component: OrderComponent, canActivate: [AuthGaurdGuard]},
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
+  { path: "**", redirectTo: "home"}
+// 
 
 ]
 @NgModule({
@@ -50,7 +55,12 @@ const appRoutes: Routes = [
   entryComponents: [ LoginComponent, ItemModalComponent ],
   providers: [
     Configuration,
-    HomepageService],
+    HomepageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

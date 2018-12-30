@@ -9,33 +9,63 @@
         <form class="text-center p-1" [formGroup]="signupForm">
           <div class="row">
             <div class="col">
-              <input type="text" id="idNumber" class="form-control mb-1" formControlName="id" placeholder="ID #">
-              <input type="email" id="email" class="form-control mb-1" formControlName="email" placeholder="Email">
-              <input type="password" id="password" class="form-control mb-1" formControlName="password" placeholder="Password">
-              <small id="" class="form-text text-muted mb-4">
-                  At least 8 characters and 1 digit
-              </small>
-              <input type="text" id="conPassword" class="form-control mb-1" formControlName="conPassword" placeholder="Confirm Password">
+                <div class="md-form">
+                  <input mdbInput mdbValidate type="text" id="idNumber" class="form-control mb-1" formControlName="tz" placeholder="ID #">
+                  <mdb-error *ngIf="id.invalid && (id.dirty || id.touched)">Required</mdb-error>
+                  <mdb-success *ngIf="id.valid && (id.dirty || id.touched)">Valid</mdb-success>
+                </div>
+                <div class="md-form">
+                  <input mdbInput mdbValidate type="email" id="email" class="form-control mb-1" formControlName="email" placeholder="Email">
+                  <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Required</mdb-error>
+                  <mdb-success *ngIf="email.valid && (email.dirty || email.touched)">Valid</mdb-success>
+                </div>
+                <div class="md-form">
+                  <input mdbInput mdbValidate type="password" id="password" class="form-control mb-1" formControlName="password" placeholder="Password">
+                  <small id="" class="form-text text-muted mb-4">
+                      At least 8 characters
+                  </small>
+                  <mdb-error *ngIf="pass.invalid && (pass.dirty || pass.touched)">Required</mdb-error>
+                  <mdb-success *ngIf="pass.valid && (pass.dirty || pass.touched)">Valid</mdb-success>
+                </div>
+                <div class="md-form">
+                  <input mdbInput mdbValidate type="text" id="conPassword" class="form-control mb-1" (keyup)="checkPassword($event)" placeholder="Confirm Password">
+                  <span class="text-danger muted small" *ngIf="!passConfirmed && pass.touched">Does not match password</span>
+                </div>   
             </div>
             <div class="col border-left">
               <div class="form-row">
                 <div class="col">
-                  <input type="text" id="firstName" class="form-control mb-1" formControlName="firstName" placeholder="First Name">
+                    <div class="md-form">
+                      <input mdbInput mdbValidate type="text" id="firstName" class="form-control mb-1" formControlName="firstName" placeholder="First Name">
+                      <mdb-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">Required</mdb-error>
+                      <mdb-success *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">Valid</mdb-success>
+                    </div>
                 </div>
                 <div class="col">
-                  <input type="text" id="email" class="form-control mb-1" formControlName="lastName" placeholder="Last Name">
+                    <div class="md-form">
+                      <input mdbInput mdbValidate type="text" class="form-control mb-1" formControlName="lastName" placeholder="Last Name">
+                      <mdb-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">Required</mdb-error>
+                      <mdb-success *ngIf="lastName.valid && (lastName.dirty || lastName.touched)">Valid</mdb-success>
+                    </div>
                 </div>
               </div>
               <select id="city" class="form-control mb-1" formControlName="city" placeholder="City">
                 <option *ngFor="let city of cityList" [value]="city">{{city}}</option>
               </select>
-              <input type="text" id="street" class="form-control mb-1" formControlName="street" placeholder="Street">
+              <div class="md-form">
+                <input mdbInput mdbValidate type="text" id="street" class="form-control mb-1" formControlName="street" placeholder="Street">
+                <mdb-error *ngIf="street.invalid && (street.dirty || street.touched)">Required</mdb-error>
+                <mdb-success *ngIf="street.valid && (street.dirty || street.touched)">Valid</mdb-success>
+              </div>
+              <div class="text-danger h5" *ngIf="errorMessage">
+                {{errorMessage}}
+              </div>
           </div>
           </div>
         </form>
     </div>
     <div class="modal-footer">
       <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel" (click)="modalRef.hide()" mdbWavesEffect>Cancel</button>
-      <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save!</button>
+      <button type="button" mdbBtn color="primary" class="relative waves-light"  (click)="signup()" mdbWavesEffect>Save!</button>
     </div>
   </div>

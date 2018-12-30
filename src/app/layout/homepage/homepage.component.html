@@ -1,20 +1,23 @@
   <div class="container-fluid">
     <div class="row">
   <div class="col-lg-4">
-    <div class="container m-3">
-      <button class="btn btn-success" type="button" [routerLink]="['../shop']">Shop!</button>
+    <div *ngIf="shopper && noCart" class="container m-3">
+      <button class="btn btn-success" type="button" (click)="enterShop()">Shop!</button>
     </div>
-    <div class="container">
+    <div class="mt-4 container">
       <h5>Login:</h5>
       <div class="container">
         <form [formGroup]="loginForm" action="">
           <label for="" class="control-label mb-0">User Name:</label>
-          <input type="text" name="userName" formControlName="user" class="form-control form-control-sm" >
+          <input type="text" name="userName"  (focus)="errorMessage=''" formControlName="email" class="form-control form-control-sm" >
           <label for="" class="control-label mb-0">Password:</label>
-          <input type="text" name="password" formControlName="password" class="form-control form-control-sm" >
-          <button class="btn btn-primary" type="submit">Login</button>
+          <input type="text" name="password" (focus)="errorMessage=''" formControlName="password" class="form-control form-control-sm" >
+          <button class="btn btn-primary" (click)="login()" type="submit">Login</button>
           <button class="btn btn-outline-info" type="button" (click)="openSignup()" >Sign Up</button>
         </form>
+        <div class="text-danger">
+          {{errorMessage}}
+        </div>
       </div>
     </div>
   </div>
@@ -40,13 +43,13 @@
               <mdb-card-text>
                 <h5>{{itemList.length}} Products in Stock</h5>
                 <h5>{{orderList.length}} Succesful orders</h5>
-                <div class="container" *ngIf="loggedIn">
-                  <h6 class="yellow-text">You have an open Cart</h6>
+                <div class="container" *ngIf="shopper && !noCart">
+                  <a [routerLink]="['../shop']" ><h6 class="yellow-text">You have an open Cart</h6></a>
                 </div>
                 </mdb-card-text>
               </mdb-card-body>
             </mdb-card>
-      
+      <!-- <button class="btn btn-info" type="button" [routerLink]="['../admin']">Admin</button> -->
     </div>
   </div>
 </div>

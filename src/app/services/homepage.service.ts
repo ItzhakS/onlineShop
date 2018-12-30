@@ -23,4 +23,23 @@ export class HomepageService {
     return this.http.get(url);
   }
 
+  login(user:any):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}login`;
+    return this.http.post(url, user);
+  }
+
+  signup(user:any):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}signup`;
+    return this.http.post(url, user);
+  }
+
+  newCart(userId):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}newCart/${userId}`;
+    return this.http.get(url);
+  }
+
+  getUser(id):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}user/${id}`;
+    return this.http.get(url);
+  }
 }

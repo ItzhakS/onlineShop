@@ -1,3 +1,92 @@
-<p>
-  admin works!
-</p>
+<div class="" style="height:90%">
+    <div class="row h-100 m-0">
+      <div class="col-3" >
+          <div class="d-flex flex-column mt-2 grey lighten-2 h-100 ">
+              <div class="container-fluid h-100  p-3">
+                <div class="d-flex flex-column h-100">
+                  <div class="d-flex h-25 justify-content-between">
+                    <h5><i class="fa fa-edit">Edit Item</i></h5>
+                    <div class="container">
+                      <button mdbBtn mdbWavesEffect (click)="addNewItem()" class=" waves-light btn btn-sm text-success float-right" type="button"><i class="fa fa-plus"></i>&nbsp;New Item</button>
+                    </div>
+                  </div>
+                <div class="container">
+                  <form action="" [formGroup]="editItemForm">
+                    <div class="md-form">
+                      <input mdbInput mdbValidate class="form-control mb-2" placeholder="Name" type="text" name="name" id="" formControlName="name">
+                      <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">Name is REquired</mdb-error>
+                      <mdb-success *ngIf="name.valid && (name.dirty || name.touched)">Valid</mdb-success>
+                    </div>
+                    <div class="md-form">
+                      <input mdbInput mdbValidate class="form-control mb-2" placeholder="Price" type="text" name="price" id="" formControlName="price">
+                      <mdb-error *ngIf="price.invalid && (price.dirty || price.touched)">Required</mdb-error>
+                      <mdb-success *ngIf="price.valid && (price.dirty || price.touched)">Valid</mdb-success>
+                    </div>
+                    <div class="md-form">
+                      <input mdbInput  mdbValidate class="form-control mb-2" placeholder="Picture Path" type="text" name="picture" id="" formControlName="picture">
+                      <mdb-error *ngIf="picture.invalid && (picture.dirty || picture.touched)"></mdb-error>
+                      <mdb-success *ngIf="picture.valid && (picture.dirty || picture.touched)">Optional</mdb-success>
+                    </div>
+                    <div class="md-form">
+                      <select name="category" mdbValidate formControlName="category" class="form-control" id="">
+                        <option value="">Category</option>
+                        <option value="1">Dairy</option>
+                        <option value="2">Meat</option>
+                        <option value="3">Carbs</option>
+                        <option value="4">Misc</option>
+                      </select>
+                      <mdb-error *ngIf="category.invalid && (category.dirty || category.touched)">Choose a Category</mdb-error>
+                      <mdb-success *ngIf="category.valid && (category.dirty || category.touched)">Valid</mdb-success>
+                    </div>
+                  </form>
+                </div>
+                <div class="h-100 d-flex">
+                  <div class="row align-self-end h-25">
+                    <div class="col">
+                      <button mdbBtn color="success" class="ml-3 waves-light btn btn-sm" (click)="saveItem()" type="button" mdbWavesEffect>Save!</button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="col">
+        <div class="container">
+            <form [formGroup]="searchForm" class="form-inline md-form form-sm active-cyan-2">
+                <input (keyup)="searchItems()" formControlName="search" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search"
+                  mdbInputDirective>
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </form>
+        </div>
+      <div class="container-fluid">
+          <ul class="nav  mb-3 justify-content-center grey lighten-4 py-1">
+              <li class="nav-item px-4" mdbWavesEffect [class.bg-info]="dairyActive" (click)="loadItems(1)">
+                  <a class="nav-link black-text"  >Dairy</a>
+              </li>
+              <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="meatActive" (click)="loadItems(2)">
+                  <a class="nav-link black-text"  >Meat</a>
+              </li>
+              <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="carbsActive" (click)="loadItems(3)">
+                  <a class="nav-link black-text"  >Carbs</a>
+              </li>
+              <li class="nav-item border-left px-4" mdbWavesEffect [class.bg-info]="miscActive" (click)="loadItems(4)">
+                  <a class="nav-link black-text"  >Misc</a>
+              </li>
+          </ul>
+          <div class="d-flex flex-wrap">
+            <div class="h3 text-danger" *ngIf="noItems">
+              No Items Found
+            </div>
+            <div *ngFor="let item of itemsList; first as isFirst" style="height:200px;width:200px" (click)="openEdit(item)" class="card mx-3 mb-2">
+              <div class="card-body">
+                <h6 class="card-title" >{{item.name}}</h6>
+                <img class="card-img-top" style="max-height:120px;max-width:135px" src="{{item.picturePath}}" alt="Card image cap">
+                <p class="card-text"><b>${{item.price}}</b></p>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>

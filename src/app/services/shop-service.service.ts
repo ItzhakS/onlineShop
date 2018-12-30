@@ -56,4 +56,22 @@ export class ShopServiceService {
     const url = `${this.config.ApiBaseUrl}shipOrder`;
     return this.http.post(url, model);
   }
+
+  newItem(item:any):Observable<any>{
+    const url = `${this.config.ApiBaseUrl}item`;
+    const model = {
+      name: item.name,
+      price: item.price,
+      picturePath: item.picture,
+      catId: parseInt(item.category)
+    };
+    return this.http.post(url, model);
+  }
+
+  updateItem(item:any, itemId:number):Observable<any>{
+    console.log('post');
+    const url = `${this.config.ApiBaseUrl}updateItem/${itemId}`;
+    item.category = typeof item.category == 'number' ? item.category : parseInt(item.category) ;
+    return this.http.post(url, item);
+  }
 }
