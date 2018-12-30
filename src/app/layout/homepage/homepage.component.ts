@@ -21,6 +21,7 @@ export class HomepageComponent implements OnInit {
     email:[''],
     password:['']
   })
+  admin: boolean;
   get user():any{return this.config.user} 
   set user(value:any){this.config.user = value};
   shopper:boolean = false;
@@ -88,6 +89,8 @@ export class HomepageComponent implements OnInit {
       this.loggedIn=false;
       this.user = null;
       this.shopper = null;
+      this.admin = false;
+      
     }
 
   loadLists() {
@@ -118,7 +121,8 @@ export class HomepageComponent implements OnInit {
             this.user = user[0];
             if(this.user.role!=0)this.shopper = true;
             else{
-              this.shopper = false
+              this.shopper = false;
+              this.admin = true;
             }
             if(!localStorage.getItem('cart')){
               this.noCart = true;

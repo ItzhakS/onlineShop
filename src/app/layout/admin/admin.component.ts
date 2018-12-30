@@ -50,11 +50,19 @@ export class AdminComponent implements OnInit {
       if(this.itemId){
        console.log('inside', this.editItemForm)
 
+       let catId = this.editItemForm.controls.category.value
         this.shopService.updateItem(this.editItemForm.value, this.itemId)
           .subscribe(res=>{
-            this.loadItems(res.catId);
+            this.loadItems(catId);
             this.itemId = null;
-          });
+            // this.editItemForm.reset()
+          },
+          e=>{
+            console.log(e.error)
+            this.loadItems(catId);
+            this.itemId = null;
+          }
+          );
       }
       else{
        console.log('outside', this.editItemForm)
@@ -62,9 +70,10 @@ export class AdminComponent implements OnInit {
         this.shopService.newItem(this.editItemForm.value)
           .subscribe(res=>{
             this.loadItems(res.catId);
+            // this.editItemForm.reset()
           })
         }
-        // this.editItemForm.reset();
+        this.editItemForm.reset();
     }
   }
 

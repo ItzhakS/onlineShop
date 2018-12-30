@@ -52,7 +52,7 @@
                 </mdb-card-text>
               </mdb-card-body>
             </mdb-card>
-      <!-- <button class="btn btn-info" type="button" [routerLink]="['../admin']">Admin</button> -->
+      <button *ngIf="admin" class="btn btn-info" type="button" [routerLink]="['../admin']">Admin</button>
     </div>
   </div>
 </div>
