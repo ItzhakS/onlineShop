@@ -108,6 +108,7 @@ export class AdminComponent implements OnInit {
   }
 
   loadItems(catId){
+    this.noItems = null;
     this.shopService.getItems(catId)
       .subscribe(
         res=>this.itemsList = res

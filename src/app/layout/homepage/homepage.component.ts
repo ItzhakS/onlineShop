@@ -44,6 +44,7 @@ export class HomepageComponent implements OnInit {
         this.loggedIn =true;
         localStorage.setItem('user', this.user.tz);
         this.shopper = true;
+        this.noCart = true;
       })
     }
 
@@ -72,6 +73,7 @@ export class HomepageComponent implements OnInit {
                   if(cart.userId == this.user.tz)this.noCart = false;
                   else localStorage.removeItem('cart');
                 }
+                else this.noCart = true;
                 this.shopper = true;
               }
             },

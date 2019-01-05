@@ -81,10 +81,11 @@ export class ShopComponent implements OnInit {
       .subscribe(res=>{
         const deletedItemIndex = this.cartItemList.findIndex(item=>item.id == res.id)
         this.cartItemList.splice(deletedItemIndex,1);
-        this.cartTotal -= res.price;
+        this.cartTotal -= res.total;
       })
   }
   loadItems(catId){
+    this.noItems=null;
     this.shopService.getItems(catId)
       .subscribe(
         res=>this.itemsList = res

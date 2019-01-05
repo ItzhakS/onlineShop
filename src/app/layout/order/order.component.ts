@@ -12,6 +12,7 @@ import { modalConfigDefaults } from 'angular-bootstrap-md/angular-bootstrap-md/m
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
+  cart: any;
 
   get user():any{return this.config.user}
 
@@ -67,8 +68,8 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cartId = parseInt(localStorage.getItem('cart'));
-
+    this.cart = JSON.parse(localStorage.getItem('cart'));
+    this.cartId = this.cart.id;
     this.getCartItems(this.cartId);
 
   }
